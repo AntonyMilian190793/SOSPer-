@@ -13,14 +13,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
         <ImageView
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
             android:layout_marginTop="100dp"
-            android:layout_marginBottom="20dp"
-            android:src="@drawable/uberclone" />
-
+            android:layout_marginBottom="35dp"
+            android:src="@drawable/sos512" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,7 +33,7 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/icons_email"/>
+                android:src="@drawable/dni64"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -45,7 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLength="50"
-                    android:hint="Correo eletrónico"
+                    android:hint="DNI"
                     android:inputType="textEmailAddress">
 
                 </com.google.android.material.textfield.TextInputEditText>

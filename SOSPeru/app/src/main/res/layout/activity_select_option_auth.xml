@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@color/colorPrimary"
+    android:background="@color/white"
     tools:context=".activities.SelectOptionAuthActivity">
 
 
@@ -13,47 +13,51 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center">
+        >
+
+        <TextView
+            android:id="@+id/textCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_marginTop="50dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <ImageView
+            android:id="@+id/iconCategory"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
-            android:layout_marginTop="50dp"
-            android:src="@drawable/uberclone" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Selecciona una opción"
-            android:textAlignment="center"
-            android:textColor="@color/colorWhite"
-            android:layout_margin="40dp"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="40dp"/>
 
         <Button
             android:id="@+id/btnGoToLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
             app:cornerRadius="50dp"
             android:textAllCaps="false"
             android:text="Ya Tengo Cuenta"
+            android:drawableRight="@drawable/ok256"
             android:backgroundTint="@color/colorBlueLight"
-            android:textColor="@color/colorWhite"
-            android:layout_marginRight="30dp"/>
+            android:textColor="@color/colorWhite"/>
 
         <Button
             android:id="@+id/btnGoToRegister"
             android:layout_width="match_parent"
             app:cornerRadius="50dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
             android:backgroundTint="@color/colorWhite"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:textAllCaps="false"
             android:text="Registrarme Ahora"
+            android:drawableRight="@drawable/registrar256"
             android:textColor="@color/black"/>
 
     </LinearLayout>

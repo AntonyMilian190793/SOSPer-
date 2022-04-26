@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">ViajeSeguro</string>
+    <string name="app_name">S.O.S Perú</string>
+    <string name="PA">PERSONAL DE AYUDA</string>
+    <string name="USER">USUARIO</string>
 </resources>
