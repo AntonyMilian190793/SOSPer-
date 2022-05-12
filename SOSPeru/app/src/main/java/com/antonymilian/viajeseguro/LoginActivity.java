@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
-
+//hola agregando comentario
     AlertDialog mDialog;
 
     @Override
