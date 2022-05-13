@@ -84,7 +84,7 @@ public class MapDriverActivity extends AppCompatActivity implements OnMapReadyCa
                             new LatLng(location.getLatitude(), location.getLongitude())
                             )
                                     .title("Tu posicion")
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.icons_car_ubicacion))
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.icons_police))
                     );
                     // obtener la loalizacion en tiempo real
                     mMap.moveCamera(CameraUpdateFactory.newCameraPosition(

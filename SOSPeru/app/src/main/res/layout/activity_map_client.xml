@@ -61,7 +61,7 @@
     <ImageView
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:src="@drawable/icons_ubicaci_n_del_usuario"
+        android:src="@drawable/icons_sosphone"
         android:layout_gravity="center"
         />
 
