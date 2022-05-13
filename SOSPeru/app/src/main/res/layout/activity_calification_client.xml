@@ -86,7 +86,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:cornerRadius="50dp"
-        android:text="Calificar atención"
+        android:text="Calificar ayuda"
         android:backgroundTint="@color/colorPrimary"
         android:textColor="@color/white"
         android:layout_margin="20dp"

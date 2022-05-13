@@ -40,7 +40,7 @@ public class MyFirebaseMessagingClient extends FirebaseMessagingService {
 
         if(title != null){
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-                if(title.contains("SOLICITUD DE SERVICIO")){
+                if(title.contains("SOLICITUD DE AYUDA")){
                     String idClient = data.get("idClient");
                     showNotificationApiOreoActions(title, body, idClient);
                 }else{
@@ -48,7 +48,7 @@ public class MyFirebaseMessagingClient extends FirebaseMessagingService {
                 }
 
             }else{
-                if(title.contains("SOLICITUD DE SERVICIO")){
+                if(title.contains("SOLICITUD DE AYUDA")){
                     String idClient = data.get("idClient");
                     showNotificationActions(title, body, idClient);
                 }else{

@@ -204,9 +204,9 @@ public class RequestDriverActivity extends AppCompatActivity {
                 if(dataSnapshot.exists()){
                     String token = dataSnapshot.child("token").getValue().toString();
                     Map<String, String> map = new HashMap<>();
-                    map.put("title", "SOLICITUD DE SERVICIO A " + time + " DE TU POSICIÓN");
+                    map.put("title", "SOLICITUD DE AYUDA A " + time + " DE TU POSICIÓN");
                     map.put("body",
-                            "Un cliente esta solicitando un servicio a una distancia de " + km + "\n" +
+                            "Están solicitando su ayuda a una distancia de " + km + "\n" +
                                     "Recoger en: " + mExtraOrigin + "\n" +
                                     "Destino: " + mExtraDestination
                     );
