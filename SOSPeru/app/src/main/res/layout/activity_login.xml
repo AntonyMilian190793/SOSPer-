@@ -96,7 +96,6 @@
                 android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAllCaps="false"
                 android:text="Iniciar Sesión"
                 app:cornerRadius="50dp"
                 android:backgroundTint="@color/colorPrimary"

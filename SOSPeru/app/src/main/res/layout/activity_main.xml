@@ -38,7 +38,6 @@
                 android:backgroundTint="@color/colorBlueLight"
                 android:text="Personal de Ayuda"
                 android:drawableLeft="@drawable/iconoayuda256"
-                android:textAllCaps="false"
                 android:textColor="@color/colorWhite"
                 android:textSize="15sp"
                 app:cornerRadius="50dp" />
@@ -53,7 +52,7 @@
                 android:backgroundTint="@color/colorWhite"
                 android:text="usuario"
                 android:drawableLeft="@drawable/usuarios256"
-                android:textAllCaps="false"
+
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 app:cornerRadius="50dp"

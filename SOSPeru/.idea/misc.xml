@@ -55,6 +55,9 @@
         <entry key="..\:/GitHub/SOSPeru/SOSPeru/app/src/main/res/layout/activity_register_driver.xml" value="0.20416666666666666" />
         <entry key="..\:/GitHub/SOSPeru/SOSPeru/app/src/main/res/layout/activity_request_driver.xml" value="0.20416666666666666" />
         <entry key="..\:/GitHub/SOSPeru/SOSPeru/app/src/main/res/layout/activity_select_option_auth.xml" value="0.20416666666666666" />
+        <entry key="..\:/GitHub/SOSPeru/SOSPeru/app/src/main/res/menu/client_menu.xml" value="0.20416666666666666" />
+        <entry key="..\:/GitHub/SOSPeru/SOSPeru/app/src/main/res/menu/driver_menu.xml" value="0.20416666666666666" />
+        <entry key="..\:/GitHub/SOSPeru/SOSPeru/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1235" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/icon_car.xml" value="0.1" />

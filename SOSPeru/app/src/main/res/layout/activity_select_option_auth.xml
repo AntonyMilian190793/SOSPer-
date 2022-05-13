@@ -40,7 +40,7 @@
             android:layout_marginLeft="60dp"
             android:layout_marginRight="60dp"
             app:cornerRadius="50dp"
-            android:textAllCaps="false"
+
             android:text="Ya Tengo Cuenta"
             android:drawableRight="@drawable/ok256"
             android:backgroundTint="@color/colorBlueLight"
@@ -55,7 +55,6 @@
             android:layout_marginRight="60dp"
             android:backgroundTint="@color/colorWhite"
             android:layout_marginTop="30dp"
-            android:textAllCaps="false"
             android:text="Registrarme Ahora"
             android:drawableRight="@drawable/registrar256"
             android:textColor="@color/black"/>

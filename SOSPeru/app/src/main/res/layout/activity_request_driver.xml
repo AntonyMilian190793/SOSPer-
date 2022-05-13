@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:lottie_imageAssetsFolder="assets"
-            app:lottie_fileName="88044-car-safety-edit.json"
+            app:lottie_fileName="7764-sos-animation.json"
             android:layout_gravity="center"
             app:lottie_loop="true"
             app:lottie_autoPlay="true"
@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:text="BUSCANDO CONDUCTOR..."
+            android:text="BUSCANDO AYUDA..."
             android:textSize="18sp"
             />
 
@@ -46,8 +46,7 @@
                 android:id="@+id/btnCancelRequest"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAllCaps="false"
-                android:text="Cancelar Viaje"
+                android:text="Cancelar ayuda"
                 app:cornerRadius="50dp"
                 android:backgroundTint="@color/colorPrimary"
                 android:textColor="@color/colorWhite"

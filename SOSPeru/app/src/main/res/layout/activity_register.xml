@@ -118,11 +118,10 @@
                 android:id="@+id/btnRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAllCaps="false"
-                android:text="Registrar"
-                app:cornerRadius="50dp"
                 android:backgroundTint="@color/colorPrimary"
-                android:textColor="@color/white"/>
+                android:text="Registrar"
+                android:textColor="@color/white"
+                app:cornerRadius="50dp" />
 
 
         </LinearLayout>
