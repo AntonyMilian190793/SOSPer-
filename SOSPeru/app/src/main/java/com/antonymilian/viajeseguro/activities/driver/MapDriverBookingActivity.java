@@ -206,7 +206,7 @@ public class MapDriverBookingActivity extends AppCompatActivity implements OnMap
 
     private void finishBooking() {
         mClientBookingProvider.updateStatus(mExtraClientId, "finish");
-        sendNotification("Viaje finalizado");
+        sendNotification("Ayuda finalizada");
         if(mFusedLocation != null){
             mFusedLocation.removeLocationUpdates(mLocationCallback);
         }
@@ -223,7 +223,7 @@ public class MapDriverBookingActivity extends AppCompatActivity implements OnMap
         mMap.clear();
         mMap.addMarker(new MarkerOptions().position(mDesinationLatLng).title("Destino").icon(BitmapDescriptorFactory.fromResource(R.drawable.icons_marcador_blue)));
         drawRoute(mDesinationLatLng);
-        sendNotification("Viaje iniciado");
+        sendNotification("Ayuda iniciada");
     }
 
     private double getDistanceBetween(LatLng clientLatLng, LatLng driverLatLng) {
@@ -481,9 +481,9 @@ public class MapDriverBookingActivity extends AppCompatActivity implements OnMap
                 if(dataSnapshot.exists()){
                     String token = dataSnapshot.child("token").getValue().toString();
                     Map<String, String> map = new HashMap<>();
-                    map.put("title", "ESTADO DE TU VIAJE");
+                    map.put("title", "ESTADO DE TU AYUDA");
                     map.put("body",
-                            "Tu estado del viaje es : " + status
+                            "Estado ayuda : " + status
                     );
                     FCMBody fcmBody = new FCMBody(token, "high", "4500s", map);
                     mNotificationProvider.sendNotification(fcmBody).enqueue(new Callback<FCMResponse>() {

@@ -131,10 +131,10 @@ public class MapClientBookingActivity extends AppCompatActivity implements OnMap
                         mTextViewStatusBooking.setText("Estado: Aceptado");
                     }
                     if(status.equals("start")){
-                        mTextViewStatusBooking.setText("Estado: Viaje Iniciado");
+                        mTextViewStatusBooking.setText("Estado: Ayuda Iniciada");
                         startBooking();
                     }else if (status.equals("finish")){
-                        mTextViewStatusBooking.setText("Estado: Viaje Finalizado");
+                        mTextViewStatusBooking.setText("Estado: Ayuda Finalizada");
                         finishBooking();
                     }
                 }

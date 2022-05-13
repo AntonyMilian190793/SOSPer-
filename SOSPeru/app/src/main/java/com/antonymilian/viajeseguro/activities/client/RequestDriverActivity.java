@@ -275,7 +275,7 @@ public class RequestDriverActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     }else if(status.equals("cancel")){
-                        Toast.makeText(RequestDriverActivity.this, "El conducto no aceptó el viaje", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RequestDriverActivity.this, "No se aceptó su ayuda", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(RequestDriverActivity.this, MapClientActivity.class);
                         startActivity(intent);
                         finish();
