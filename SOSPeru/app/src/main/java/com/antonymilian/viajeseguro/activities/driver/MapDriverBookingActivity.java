@@ -253,8 +253,8 @@ public class MapDriverBookingActivity extends AppCompatActivity implements OnMap
 
                     mOriginLatLng = new LatLng(originLat, originLng);
                     mDesinationLatLng = new LatLng(destinationLat, destinationLng);
-                    mTextViewOriginClientBooking.setText("Recoger en: " + origin);
-                    mTextViewDestinationClientBooking.setText("Destino : " + destination);
+                    mTextViewOriginClientBooking.setText("Ayuda en: " + origin);
+//                    mTextViewDestinationClientBooking.setText("Destino : " + destination);
                     mMap.addMarker(new MarkerOptions().position(mOriginLatLng).title("Recoger aquí").icon(BitmapDescriptorFactory.fromResource(R.drawable.icons_marcador_red)));
                     drawRoute(mOriginLatLng);
                 }

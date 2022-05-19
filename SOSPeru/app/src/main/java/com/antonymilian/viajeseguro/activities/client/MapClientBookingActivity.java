@@ -188,8 +188,8 @@ public class MapClientBookingActivity extends AppCompatActivity implements OnMap
 
                     mOriginLatLng = new LatLng(originLat, originLng);
                     mDestinationLatLng = new LatLng(destinationLat, destinationLng);
-                    mTextViewOriginClientBooking.setText("Recoger en: " + origin);
-                    mTextViewDestinationClientBooking.setText("Destino : " + destination);
+                    mTextViewOriginClientBooking.setText("Ayuda en: " + origin);
+//                    mTextViewDestinationClientBooking.setText("Destino : " + destination);
                     mMap.addMarker(new MarkerOptions().position(mOriginLatLng).title("Recoger aquí").icon(BitmapDescriptorFactory.fromResource(R.drawable.icons_marcador_red)));
                     getDriver(idDriver);
                     getDriverLocation(idDriver);
@@ -234,7 +234,7 @@ public class MapClientBookingActivity extends AppCompatActivity implements OnMap
                         mMarkerDriver.remove();
                     }
                             mMarkerDriver = mMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng))
-                            .title("Tu conductor")
+                            .title("Tu ayuda")
                             .icon(BitmapDescriptorFactory.fromResource(R.drawable.icons_police)));
                     if(mIsFirsTime){
                         mIsFirsTime = false;

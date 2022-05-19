@@ -49,8 +49,8 @@
                 <ImageView
                     android:id="@+id/imageViewClientBooking"
                     android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/icons_conductor"/>
+                    android:layout_height="110dp"
+                    android:src="@drawable/icons_alert"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -61,7 +61,7 @@
                         android:id="@+id/textViewOriginDriverBooking"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Lugar de recogida"
+                        android:text="Lugar de ayuda"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="5dp"
                         android:textSize="16sp"/>
@@ -70,10 +70,10 @@
                         android:id="@+id/textViewDestinationDriverBooking"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Destino"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="5dp"
                         android:textSize="16sp"/>
+                    <!--                        android:text="Destino"-->
 
                     <TextView
                         android:id="@+id/textViewDriverBooking"

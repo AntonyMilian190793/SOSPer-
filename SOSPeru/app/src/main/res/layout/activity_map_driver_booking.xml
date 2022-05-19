@@ -22,8 +22,7 @@
         android:id="@+id/btnFinishBooking"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:text="Finalizar Viaje"
+        android:text="Finalizar Ayuda"
         app:cornerRadius="50dp"
         android:backgroundTint="@color/colorPrimary"
         android:textColor="@color/white"
@@ -59,8 +58,8 @@
                 <ImageView
                     android:id="@+id/imageViewClientBooking"
                     android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/icons_user"/>
+                    android:layout_height="110dp"
+                    android:src="@drawable/icons_cellphonesos"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -71,7 +70,7 @@
                         android:id="@+id/textViewOriginClientBooking"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Lugar de recogida"
+                        android:text="Lugar de ayuda"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="5dp"
                         android:textSize="16sp"/>
@@ -80,10 +79,10 @@
                         android:id="@+id/textViewDestinationClientBooking"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Destino"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="5dp"
                         android:textSize="16sp"/>
+                    <!--                        android:text="Destino"-->
 
                     <TextView
                         android:id="@+id/textViewClientBooking"
