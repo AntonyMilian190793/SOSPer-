@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ import com.google.android.gms.maps.model.JointType;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.maps.model.SquareCap;
+import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -47,7 +49,7 @@ public class RequestDriverActivity extends AppCompatActivity {
 
     private LottieAnimationView mAnimation;
     private TextView mTextViewLokkingFor;
-    private Button btnCancelRequest;
+    private Button mButtonCancelRequest;
     private GeofireProvider mGeofireProvider;
 
     private String mExtraOrigin;
@@ -84,7 +86,7 @@ public class RequestDriverActivity extends AppCompatActivity {
 
         mAnimation = findViewById(R.id.animation);
         mTextViewLokkingFor = findViewById(R.id.textViewLookingFor);
-        btnCancelRequest = findViewById(R.id.btnCancelRequest);
+        mButtonCancelRequest = findViewById(R.id.btnCancelRequest);
 
         mAnimation.playAnimation();
 
@@ -107,7 +109,23 @@ public class RequestDriverActivity extends AppCompatActivity {
 
         mGoogleApiProvider = new GoogleApiProvider(RequestDriverActivity.this);
 
+        mButtonCancelRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancelRequest();
+            }
+        });
+
         getCloseDriver();
+    }
+
+    private void cancelRequest() {
+        mClientBookingProvider.delete(mAuthProvider.getId()).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                SendNotificationCancel();
+            }
+        });
     }
 
     private void getCloseDriver(){
@@ -192,6 +210,55 @@ public class RequestDriverActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void SendNotificationCancel(){
+        mTokenProvider.getToken(mIdDriverFound).addListenerForSingleValueEvent(new ValueEventListener() {
+            //el dataSnapshot consigue el valor del token del usuario
+            @Override
+
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    String token = dataSnapshot.child("token").getValue().toString();
+                    Map<String, String> map = new HashMap<>();
+                    map.put("title", "AYUDA CANCELADA");
+                    map.put("body",
+                            "La solicitud de ayuda fue cancelada "
+                    );
+                    FCMBody fcmBody = new FCMBody(token, "high", "4500s", map);
+                    mNotificationProvider.sendNotification(fcmBody).enqueue(new Callback<FCMResponse>() {
+                        @Override
+                        public void onResponse(Call<FCMResponse> call, Response<FCMResponse> response) {
+                            if(response.body() != null){
+                                if(response.body().getSuccess() == 1){
+                                    Toast.makeText(RequestDriverActivity.this, "La solicitud se canceló correctamente!", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(RequestDriverActivity.this, MapClientActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                    //Toast.makeText(RequestDriverActivity.this, "La notificación se envió correctamente!", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Toast.makeText(RequestDriverActivity.this, "No se pudo enviar su notificación!", Toast.LENGTH_SHORT).show();
+                                }
+                            }else{
+                                Toast.makeText(RequestDriverActivity.this, "No se pudo enviar su notificación!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<FCMResponse> call, Throwable t) {
+                            Log.d("Error", "Error" +  t.getMessage());
+                        }
+                    });
+                }else{
+                    Toast.makeText(RequestDriverActivity.this, "No se pudo enviar su notificación porque el conductor no tiene un token de sesión!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 

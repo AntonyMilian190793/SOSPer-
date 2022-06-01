@@ -15,8 +15,8 @@
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
             app:lottie_imageAssetsFolder="assets"
             app:lottie_fileName="7764-sos-animation.json"
             android:layout_gravity="center"
@@ -46,12 +46,11 @@
                 android:id="@+id/btnCancelRequest"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cancelar ayuda"
-                app:cornerRadius="50dp"
-                android:backgroundTint="@color/colorPrimary"
-                android:textColor="@color/colorWhite"
                 android:layout_margin="30dp"
-                />
+                android:backgroundTint="@color/colorPrimary"
+                android:text="Cancelar ayuda"
+                android:textColor="@color/colorWhite"
+                app:cornerRadius="50dp" />
 
         </LinearLayout>
 

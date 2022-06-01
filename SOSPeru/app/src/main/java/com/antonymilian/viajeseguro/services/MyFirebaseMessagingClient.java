@@ -1,6 +1,7 @@
 package com.antonymilian.viajeseguro.services;
 
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -52,6 +53,10 @@ public class MyFirebaseMessagingClient extends FirebaseMessagingService {
                     String distance = data.get("distance");
                     showNotificationApiOreoActions(title, body, idClient);
                     showNotificationActivity(idClient, origin, destination, min, distance);
+                }else if(title.contains("AYUDA CANCELADA")){
+                    NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                    manager.cancel(2);
+                    showNotificationApiOreo(title, body);
                 }else{
                     showNotificationApiOreo(title, body);
                 }
@@ -65,7 +70,12 @@ public class MyFirebaseMessagingClient extends FirebaseMessagingService {
                     String min = data.get("min");
                     String distance = data.get("distance");
                     showNotificationActivity(idClient, origin, destination, min, distance);
-                }else{
+                }else if(title.contains("AYUDA CANCELADA")){
+                    NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                    manager.cancel(2);
+                    showNotification(title, body);
+                }
+                else{
                     showNotification(title, body);
                 }
 

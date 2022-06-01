@@ -227,7 +227,7 @@ public class MapClientActivity extends AppCompatActivity implements OnMapReadyCa
     private void instanceAutocompleteOrigin(){
         mAutocomplete = (AutocompleteSupportFragment) getSupportFragmentManager().findFragmentById(R.id.placeAutocompleteorigin);
         mAutocomplete.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.LAT_LNG, Place.Field.NAME));
-        mAutocomplete.setHint("Ingresa punto de partida");
+        mAutocomplete.setHint("Ingrese punto de ayuda!");
         mAutocomplete.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
@@ -249,7 +249,7 @@ public class MapClientActivity extends AppCompatActivity implements OnMapReadyCa
 
         mAutocompleteDestination = (AutocompleteSupportFragment) getSupportFragmentManager().findFragmentById(R.id.placeAutocompletedestination);
         mAutocompleteDestination.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.LAT_LNG, Place.Field.NAME));
-        mAutocompleteDestination.setHint("¿A dónde vas?");
+        mAutocompleteDestination.setHint("¿Es en otro lugar el incidente?");
         mAutocompleteDestination.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(@NonNull Place place) {

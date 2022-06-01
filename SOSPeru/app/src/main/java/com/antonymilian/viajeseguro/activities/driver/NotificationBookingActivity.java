@@ -1,5 +1,6 @@
 package com.antonymilian.viajeseguro.activities.driver;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.NotificationManager;
@@ -12,11 +13,15 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.antonymilian.viajeseguro.R;
 import com.antonymilian.viajeseguro.providers.AuthProvider;
 import com.antonymilian.viajeseguro.providers.ClientBookingProvider;
 import com.antonymilian.viajeseguro.providers.GeofireProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 public class NotificationBookingActivity extends AppCompatActivity {
 
@@ -57,6 +62,7 @@ public class NotificationBookingActivity extends AppCompatActivity {
             }
         }
     };
+    private ValueEventListener mListener;
 
     private void initTimer() {
         mHandler = new Handler();
@@ -87,6 +93,8 @@ public class NotificationBookingActivity extends AppCompatActivity {
         mMediaPlayer = MediaPlayer.create(this, R.raw.alerta);
         mMediaPlayer.setLooping(true);
 
+        mClientBookingProvider = new ClientBookingProvider();
+
         mTextViewDestination.setText(mExtraDesination);
         mTextViewOrigin.setText(mExtraOrigin);
         mTextViewMin.setText(mExtraMin);
@@ -101,6 +109,8 @@ public class NotificationBookingActivity extends AppCompatActivity {
 
         initTimer();
 
+        checkIfClientCancelBooking();
+
         mButtonAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,12 +124,30 @@ public class NotificationBookingActivity extends AppCompatActivity {
                 cancelBooking();
             }
         });
+    }
 
+    private void checkIfClientCancelBooking(){
+        mListener = mClientBookingProvider.getClientBooking(mExtraIdClient).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()){
+                    Toast.makeText(NotificationBookingActivity.this, "El usuario canceló la ayuda", Toast.LENGTH_LONG).show();
+                    if(mHandler != null) mHandler.removeCallbacks(runnable);
+                    Intent intent = new Intent(NotificationBookingActivity.this, MapDriverActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void cancelBooking() {
         if(mHandler != null) mHandler.removeCallbacks(runnable);
-        mClientBookingProvider = new ClientBookingProvider();
         mClientBookingProvider.updateStatus(mExtraIdClient, "cancel");
 
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -186,6 +214,9 @@ public class NotificationBookingActivity extends AppCompatActivity {
             if(mMediaPlayer.isPlaying()){
                 mMediaPlayer.pause();
             }
+        }
+        if(mListener != null){
+            mClientBookingProvider.getClientBooking(mExtraIdClient).removeEventListener(mListener);
         }
     }
 }
