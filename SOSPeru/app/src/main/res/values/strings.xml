@@ -2,4 +2,7 @@
     <string name="app_name">S.O.S Perú</string>
     <string name="PA">PERSONAL DE AYUDA</string>
     <string name="USER">USUARIO</string>
+    <string name="dni">DNI</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="iniciar_sesion">Iniciar Sesión</string>
 </resources>
