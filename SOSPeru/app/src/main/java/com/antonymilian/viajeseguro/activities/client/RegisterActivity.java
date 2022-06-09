@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.antonymilian.viajeseguro.R;
@@ -35,10 +36,15 @@ public class RegisterActivity extends AppCompatActivity {
     ClientProvider mClientProvider;
 
     //Views
-    Button mButtonRegister;
-    TextInputEditText mTextInputName;
-    TextInputEditText mTextInputEmail;
-    TextInputEditText mTextInputPassword;
+    Button btnRegister;
+    Button btnSaveDni;
+    ImageView imgDniUser;
+    TextInputEditText textInputNombres;
+    TextInputEditText textInputApellidos;
+    TextInputEditText textInputDni;
+    TextInputEditText textInputCorreo;
+    TextInputEditText textInputMovil;
+    TextInputEditText textInputContrasena;
 
     AlertDialog mDialog;
 
@@ -54,30 +60,39 @@ public class RegisterActivity extends AppCompatActivity {
 
         //Toast.makeText(this, "El valor que seleccionó fue " + selectedUser, Toast.LENGTH_SHORT).show();
 
-        mButtonRegister = findViewById(R.id.btnRegister);
-        mTextInputName = findViewById(R.id.textInputNombre);
-        mTextInputEmail = findViewById(R.id.textImputCorreo);
-        mTextInputPassword = findViewById(R.id.textInputContrasena);
+        btnRegister = findViewById(R.id.btnRegister);
+        btnSaveDni = findViewById(R.id.btnSaveDni);
+        imgDniUser = findViewById(R.id.imgDniUser);
 
-        mButtonRegister.setOnClickListener(new View.OnClickListener() {
+        textInputNombres = findViewById(R.id.textInputNombres);
+        textInputApellidos = findViewById(R.id.textInputApellidos);
+        textInputDni = findViewById(R.id.textInputDni);
+        textInputCorreo = findViewById(R.id.textInputCorreo);
+        textInputMovil = findViewById(R.id.textInputMovil);
+        textInputContrasena = findViewById(R.id.textInputContrasena);
+
+        btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                clickRegister();
+                registrarUsuario();
             }
         });
     }
 
-    void clickRegister(){
+    void registrarUsuario(){
 
-         final String name = mTextInputName.getText().toString();
-         final String email = mTextInputEmail.getText().toString();
-         final String password = mTextInputPassword.getText().toString();
+        final String nombres = textInputNombres.getText().toString();
+        final String apellidos = textInputApellidos.getText().toString();
+        final String dni = textInputDni.getText().toString() + "@sosperu.com.pe";
+        final String correo = textInputCorreo.getText().toString();
+        final String movil = textInputMovil.getText().toString();
+        final String password = textInputContrasena.getText().toString();
 
-        if(!name.isEmpty() && !email.isEmpty() && !password.isEmpty()){
+        if(!nombres.isEmpty() && !dni.isEmpty() && !password.isEmpty()){
             if(password.length() >= 6){
                 mDialog.show();
-                register(name, email, password);
+                register(nombres, dni, password);
 
             }else{
                 Toast.makeText(this, "La contraseña debe tener 6 caracteres.", Toast.LENGTH_SHORT).show();
@@ -87,14 +102,14 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    void register(final String name, String email, String password){
-        mAuthProvider.register(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+    void register(final String name, String dni, String password){
+        mAuthProvider.register(dni, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 mDialog.hide();
                 if(task.isSuccessful()){
                     String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    Client client = new Client(id, name, email);
+                    Client client = new Client(id, name, dni);
                     create(client);
                 }else{
                     Toast.makeText(RegisterActivity.this, "No se pudo registrar el Usuario", Toast.LENGTH_SHORT).show();
