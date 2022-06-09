@@ -72,7 +72,7 @@ public class RegisterActivity extends AppCompatActivity {
     void clickRegister(){
 
          final String name = mTextInputName.getText().toString();
-         final String email = mTextInputEmail.getText().toString();
+         final String email = mTextInputEmail.getText().toString() + "@sosperu.com.pe";
          final String password = mTextInputPassword.getText().toString();
 
         if(!name.isEmpty() && !email.isEmpty() && !password.isEmpty()){
