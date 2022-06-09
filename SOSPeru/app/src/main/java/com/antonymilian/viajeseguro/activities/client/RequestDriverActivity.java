@@ -136,7 +136,7 @@ public class RequestDriverActivity extends AppCompatActivity {
                     mDriverFound = true;
                     mIdDriverFound = key;
                     mDriverFoundLatLng = new LatLng(location.latitude, location.longitude);
-                    mTextViewLokkingFor.setText("CONDUCTOR ENCONTRADO\nESPERANDO RESPUESTA");
+                    mTextViewLokkingFor.setText("AYUDA ENCONTRADO\nESPERANDO RESPUESTA");
                     createClientBooking();
                     Log.d("DRIVER", "ID: "+ mIdDriverFound);
                 }
@@ -160,7 +160,7 @@ public class RequestDriverActivity extends AppCompatActivity {
                     mRadius = mRadius + 0.1f;
                     //no se encontro ningun conductor
                     if(mRadius > 5){
-                        mTextViewLokkingFor.setText("NO SE ENCONTRO CONDUCTOR");
+                        mTextViewLokkingFor.setText("NO SE ENCONTRO AYUDA");
                         Toast.makeText(RequestDriverActivity.this, "No se encontró un conductor", Toast.LENGTH_SHORT).show();
                         return;
                     }else{

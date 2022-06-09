@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ViajeSeguro">
         <activity
+            android:name=".activities.client.UpdateProfileActivity" android:parentActivityName=".activities.client.MapClientActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.driver.NotificationBookingActivity"
             android:exported="false" />
         <activity
