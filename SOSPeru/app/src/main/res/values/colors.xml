@@ -17,4 +17,7 @@
     <color name="colorBlueLight">#03A9F4</color>
     <color name="colorRedBandera">#E2002F</color>
     <color name="colorWhiteBandera">#EBEEEE</color>
+    <!--Color Input PlaceHolder -->
+    <color name="TextPlaceHolder">#4F5050</color>
+    <color name="BackGroundPlaceHolder">#DEDEDE</color>
 </resources>

@@ -20,7 +20,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="100dp"
             android:layout_marginBottom="35dp"
-            android:src="@drawable/sos512" />
+            android:src="@drawable/sos512"
+            android:contentDescription="ImagenLogo" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,20 +34,23 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/dni64"/>
+                android:src="@drawable/dni64"
+                android:contentDescription="DniImagen" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp">
+                android:layout_marginStart="5dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/textImputEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="@string/dni"
+                    android:inputType="textEmailAddress"
                     android:maxLength="50"
-                    android:hint="DNI"
-                    android:inputType="textEmailAddress">
+                    android:textColorHint="#616161"
+                    tools:ignore="TextContrastCheck">
 
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
@@ -65,21 +69,23 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/icons_password"/>
+                android:src="@drawable/icons_password"
+                android:contentDescription="ContraseñaImagen" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 app:passwordToggleEnabled="true" >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/textImputPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="@string/contrasena"
+                    android:inputType="textPassword"
                     android:maxLength="50"
-                    android:hint="Contraseña"
-                    android:inputType="textPassword">
+                    tools:ignore="TextContrastCheck">
 
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
@@ -96,10 +102,11 @@
                 android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Iniciar Sesión"
-                app:cornerRadius="50dp"
                 android:backgroundTint="@color/colorPrimary"
-                android:textColor="@color/white"/>
+                android:text="@string/iniciar_sesion"
+                android:textColor="@color/white"
+                app:cornerRadius="50dp"
+                tools:ignore="TextContrastCheck" />
 
 
         </LinearLayout>
