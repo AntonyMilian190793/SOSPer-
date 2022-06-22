@@ -31,7 +31,7 @@
             android:layout_height="150dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="40dp"/>
+            android:layout_marginBottom="40dp" />
 
         <Button
             android:id="@+id/btnGoToLogin"
@@ -39,25 +39,25 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="60dp"
-            app:cornerRadius="50dp"
-
-            android:text="Ya Tengo Cuenta"
-            android:drawableRight="@drawable/ok256"
             android:backgroundTint="@color/colorBlueLight"
-            android:textColor="@color/colorWhite"/>
+
+            android:drawableRight="@drawable/ok256"
+            android:text="Ya Tengo Cuenta"
+            android:textColor="@color/colorWhite"
+            app:cornerRadius="50dp" />
 
         <Button
             android:id="@+id/btnGoToRegister"
             android:layout_width="match_parent"
-            app:cornerRadius="50dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="60dp"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="60dp"
             android:backgroundTint="@color/colorWhite"
-            android:layout_marginTop="30dp"
-            android:text="Registrarme Ahora"
             android:drawableRight="@drawable/registrar256"
-            android:textColor="@color/black"/>
+            android:text="Registrarme Ahora"
+            android:textColor="@color/black"
+            app:cornerRadius="50dp" />
 
     </LinearLayout>
 

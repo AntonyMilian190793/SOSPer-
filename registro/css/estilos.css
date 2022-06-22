@@ -1,0 +1,19 @@
+.texto
+{
+	margin-bottom: 10px;
+	width: 40%;
+	min-width: 250px;
+	height: 40px;
+	text-align: center;
+}
+
+body
+{
+	background-color: #9DB7EE;
+}
+
+.btn-registro
+{
+	width: 10%;
+	height: 25px;
+}

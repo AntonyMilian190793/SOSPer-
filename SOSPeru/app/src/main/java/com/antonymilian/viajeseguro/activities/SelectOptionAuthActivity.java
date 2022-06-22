@@ -48,7 +48,6 @@ public class SelectOptionAuthActivity extends AppCompatActivity {
             }
         });
         mButtonRegister.setVisibility(typeUser.equals("client") ? View.VISIBLE : View.INVISIBLE);
-
         mImagenIconCategory.setImageResource(typeUser.equals("client") ? R.drawable.usuarios256 : R.drawable.iconoayuda256);
         mtextViewCategory.setText(typeUser.equals("client") ? R.string.USER : R.string.PA);
 
