@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -15,8 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ViajeSeguro">
         <activity
-            android:name=".activities.client.UpdateProfileActivity" android:parentActivityName=".activities.client.MapClientActivity"
+            android:name=".UpdateProfileDriverActivity"
             android:exported="false" />
+        <activity
+            android:name=".activities.client.UpdateProfileActivity"
+            android:exported="false"
+            android:parentActivityName=".activities.client.MapClientActivity" />
         <activity
             android:name=".activities.driver.NotificationBookingActivity"
             android:exported="false" />

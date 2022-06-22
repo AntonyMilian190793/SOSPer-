@@ -2,9 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item android:id="@+id/action_update"
+        android:title="Editar perfil"
+        app:showAsAction="never">
+    </item>
+
     <item android:id="@+id/action_logout"
         android:title="Cerrar Sesión"
         app:showAsAction="never">
-
     </item>
 </menu>
