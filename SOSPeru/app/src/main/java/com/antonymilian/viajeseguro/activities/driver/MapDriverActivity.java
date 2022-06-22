@@ -26,6 +26,8 @@ import androidx.core.content.ContextCompat;
 
 import com.antonymilian.viajeseguro.R;
 import com.antonymilian.viajeseguro.activities.MainActivity;
+import com.antonymilian.viajeseguro.activities.client.MapClientActivity;
+import com.antonymilian.viajeseguro.activities.client.UpdateProfileActivity;
 import com.antonymilian.viajeseguro.providers.AuthProvider;
 import com.antonymilian.viajeseguro.providers.GeofireProvider;
 import com.antonymilian.viajeseguro.providers.TokenProvider;
@@ -299,6 +301,10 @@ public class MapDriverActivity extends AppCompatActivity implements OnMapReadyCa
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.action_logout){
             logout();
+        }
+        if (item.getItemId() == R.id.action_update) {
+            Intent intent =new Intent(MapDriverActivity.this, UpdateProfileDriverActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

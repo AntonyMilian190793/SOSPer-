@@ -16,8 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ViajeSeguro">
         <activity
-            android:name=".UpdateProfileDriverActivity"
-            android:exported="false" />
+            android:name=".activities.driver.UpdateProfileDriverActivity"
+            android:exported="false"
+            android:parentActivityName=".activities.driver.MapDriverActivity"/>
         <activity
             android:name=".activities.client.UpdateProfileActivity"
             android:exported="false"

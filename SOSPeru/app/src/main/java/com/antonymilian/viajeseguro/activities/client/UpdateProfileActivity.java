@@ -20,6 +20,7 @@ import com.antonymilian.viajeseguro.R;
 import com.antonymilian.viajeseguro.models.Client;
 import com.antonymilian.viajeseguro.providers.AuthProvider;
 import com.antonymilian.viajeseguro.providers.ClientProvider;
+import com.antonymilian.viajeseguro.providers.ImagesProvider;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -42,6 +43,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
     private ClientProvider mClientProvider;
     private AuthProvider mAuthProvider;
+    private ImagesProvider mImagesProvider;
 
     private File mImageFile;
     private String mImage;
@@ -61,6 +63,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
         mClientProvider = new ClientProvider();
         mAuthProvider = new AuthProvider();
+        mImagesProvider = new ImagesProvider("client_images");
 
         mProgressDialog = new ProgressDialog(this);
 
@@ -132,14 +135,11 @@ public class UpdateProfileActivity extends AppCompatActivity {
     }
 
     private void saveImage() {
-        byte[] imageByte = CompressorBitmapImage.getImage(this, mImageFile.getPath(), 500, 500);
-        StorageReference storage = FirebaseStorage.getInstance().getReference().child("client_images").child(mAuthProvider.getId() + ".jpg");
-        UploadTask uploadTask = storage.putBytes(imageByte);
-        uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+        mImagesProvider.saveImages(UpdateProfileActivity.this, mImageFile, mAuthProvider.getId()).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 if (task.isSuccessful()) {
-                    storage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    mImagesProvider.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
                             String image = uri.toString();

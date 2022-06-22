@@ -1,9 +1,13 @@
 package com.antonymilian.viajeseguro.providers;
 
+import com.antonymilian.viajeseguro.models.Client;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.antonymilian.viajeseguro.models.Driver;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class DriverProvider {
 
@@ -19,5 +23,14 @@ public class DriverProvider {
 
     public DatabaseReference getDriver(String idDriver){
         return mDatabase.child(idDriver);
+    }
+
+    public Task<Void> update(Driver driver){
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", driver.getName());
+        map.put("image", driver.getImage());
+        map.put("marcaVehiculo", driver.getMarcaVehiculo());
+        map.put("placaVehiculo", driver.getPlacaVehiculo());
+        return mDatabase.child(driver.getId()).updateChildren(map);
     }
 }

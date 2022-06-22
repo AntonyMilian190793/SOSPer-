@@ -7,6 +7,11 @@ public class Driver {
     String email;
     String marcaVehiculo;
     String placaVehiculo;
+    String image;
+
+    public Driver(){
+
+    }
 
     public Driver(String id, String name, String email, String marcaVehiculo, String placaVehiculo) {
         this.id = id;
@@ -14,6 +19,14 @@ public class Driver {
         this.email = email;
         this.marcaVehiculo = marcaVehiculo;
         this.placaVehiculo = placaVehiculo;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getId() {
