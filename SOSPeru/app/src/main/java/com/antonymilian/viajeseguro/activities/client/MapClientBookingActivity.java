@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.antonymilian.viajeseguro.R;
@@ -40,6 +41,7 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -62,6 +64,8 @@ public class MapClientBookingActivity extends AppCompatActivity implements OnMap
 
     private ClientBookingProvider mClientBookingProvider;
     private DriverProvider mDriverProvider;
+
+    private ImageView mImageViewBooking;
 
     private Marker mMarkerDriver;
 
@@ -115,6 +119,8 @@ public class MapClientBookingActivity extends AppCompatActivity implements OnMap
         mTextViewStatusBooking = findViewById(R.id.textViewStatusBooking);
         mTextViewOriginClientBooking = findViewById(R.id.textViewOriginDriverBooking);
         mTextViewDestinationClientBooking = findViewById(R.id.textViewDestinationDriverBooking);
+
+        mImageViewBooking = findViewById(R.id.imageViewClientBooking);
 
         getStatus();
         getClientBooking();
@@ -209,9 +215,14 @@ public class MapClientBookingActivity extends AppCompatActivity implements OnMap
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     String name = dataSnapshot.child("name").getValue().toString();
-                    String email = dataSnapshot.child("email").getValue().toString();
+//                    String email = dataSnapshot.child("email").getValue().toString();
                     mTextViewClientBooking.setText(name);
-                    mTextViewEmailClientBooking.setText(email);
+//                    mTextViewEmailClientBooking.setText(email);
+                    String image = "";
+                    if (dataSnapshot.hasChild("image")) {
+                        image = dataSnapshot.child("image").getValue().toString();
+                        Picasso.with(MapClientBookingActivity.this).load(image).into(mImageViewBooking);
+                    }
                 }
             }
 

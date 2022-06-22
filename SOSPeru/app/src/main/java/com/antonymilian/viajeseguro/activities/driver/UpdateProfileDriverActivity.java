@@ -35,6 +35,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
@@ -121,6 +122,11 @@ public class UpdateProfileDriverActivity extends AppCompatActivity {
                     String name = dataSnapshot.child("name").getValue().toString();
                     String vehicleBrand = dataSnapshot.child("marcaVehiculo").getValue().toString();
                     String vehiclePlate = dataSnapshot.child("placaVehiculo").getValue().toString();
+                    String image = "";
+                    if (dataSnapshot.hasChild("image")) {
+                        image = dataSnapshot.child("image").getValue().toString();
+                        Picasso.with(UpdateProfileDriverActivity.this).load(image).into(mImageViewProfile);
+                    }
                     mTextViewName.setText(name);
                     mTextBrandVehicle.setText(vehicleBrand);
                     mTextViewPlateVehicle.setText(vehiclePlate);

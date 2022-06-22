@@ -22,11 +22,13 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.antonymilian.viajeseguro.R;
 import com.antonymilian.viajeseguro.activities.client.DetailRequestActivity;
+import com.antonymilian.viajeseguro.activities.client.MapClientBookingActivity;
 import com.antonymilian.viajeseguro.activities.client.RequestDriverActivity;
 import com.antonymilian.viajeseguro.models.ClientBooking;
 import com.antonymilian.viajeseguro.models.FCMBody;
@@ -60,6 +62,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -100,6 +103,8 @@ public class MapDriverBookingActivity extends AppCompatActivity implements OnMap
     private TextView mTextViewEmailClientBooking;
     private TextView mTextViewOriginClientBooking;
     private TextView mTextViewDestinationClientBooking;
+
+    private ImageView mImageViewBooking;
 
     private String mExtraClientId;
 
@@ -173,6 +178,8 @@ public class MapDriverBookingActivity extends AppCompatActivity implements OnMap
         mTextViewEmailClientBooking = findViewById(R.id.textViewEmailClientBooking);
         mTextViewOriginClientBooking = findViewById(R.id.textViewOriginClientBooking);
         mTextViewDestinationClientBooking = findViewById(R.id.textViewDestinationClientBooking);
+
+        mImageViewBooking = findViewById(R.id.imageViewClientBooking);
 
         mButtonStartBooking = findViewById(R.id.btnStartBooking);
         mButtonFinishBooking = findViewById(R.id.btnFinishBooking);
@@ -318,6 +325,11 @@ public class MapDriverBookingActivity extends AppCompatActivity implements OnMap
                     String name = dataSnapshot.child("name").getValue().toString();
                     mTextViewClientBooking.setText(name);
                     mTextViewEmailClientBooking.setText(email);
+                    String image = "";
+                    if (dataSnapshot.hasChild("image")) {
+                        image = dataSnapshot.child("image").getValue().toString();
+                        Picasso.with(MapDriverBookingActivity.this).load(image).into(mImageViewBooking);
+                    }
                 }
             }
 

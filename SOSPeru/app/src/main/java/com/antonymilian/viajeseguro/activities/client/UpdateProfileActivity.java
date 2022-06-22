@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.antonymilian.viajeseguro.R;
+import com.antonymilian.viajeseguro.activities.driver.MapDriverBookingActivity;
 import com.antonymilian.viajeseguro.models.Client;
 import com.antonymilian.viajeseguro.providers.AuthProvider;
 import com.antonymilian.viajeseguro.providers.ClientProvider;
@@ -32,6 +33,7 @@ import com.antonymilian.viajeseguro.utils.CompressorBitmapImage;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
@@ -110,6 +112,11 @@ public class UpdateProfileActivity extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     String name = dataSnapshot.child("name").getValue().toString();
                     mTextViewName.setText(name);
+                    String image = "";
+                    if (dataSnapshot.hasChild("image")) {
+                        image = dataSnapshot.child("image").getValue().toString();
+                        Picasso.with(UpdateProfileActivity.this).load(image).into(mImageViewProfile);
+                    }
                 }
             }
 
