@@ -110,7 +110,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    String name = dataSnapshot.child("name").getValue().toString();
+                    String name = dataSnapshot.child("nombres").getValue().toString();
                     mTextViewName.setText(name);
                     String image = "";
                     if (dataSnapshot.hasChild("image")) {
@@ -152,7 +152,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
                             String image = uri.toString();
                             Client client = new Client();
                             client.setImage(image);
-                            client.setName(mName);
+                            client.setNombres(mName);
                             client.setId(mAuthProvider.getId());
                             mClientProvider.update(client).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override

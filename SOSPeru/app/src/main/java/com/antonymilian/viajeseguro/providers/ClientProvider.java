@@ -18,14 +18,17 @@ public class ClientProvider {
 
     public Task<Void> create(Client client){
         Map<String, Object> map = new HashMap<>();
-        map.put("name", client.getName());
-        map.put("email", client.getEmail());
+        map.put("nombres", client.getNombres());
+        map.put("apellidos", client.getApellidos());
+        map.put("correo", client.getCorreo());
+        map.put("movil", client.getMovil());
+        map.put("dni", client.getDni());
         return mDatabase.child(client.getId()).setValue(map);
     }
 
     public Task<Void> update(Client client){
         Map<String, Object> map = new HashMap<>();
-        map.put("name", client.getName());
+        map.put("name", client.getNombres());
         map.put("image", client.getImage());
         return mDatabase.child(client.getId()).updateChildren(map);
     }

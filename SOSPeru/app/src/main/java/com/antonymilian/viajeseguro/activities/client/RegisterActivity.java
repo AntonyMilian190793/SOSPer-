@@ -74,7 +74,6 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 registrarUsuario();
             }
         });
@@ -92,7 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
         if(!nombres.isEmpty() && !dni.isEmpty() && !password.isEmpty()){
             if(password.length() >= 6){
                 mDialog.show();
-                register(nombres, dni, password);
+                register(nombres, apellidos, correo, movil, dni, password);
 
             }else{
                 Toast.makeText(this, "La contraseña debe tener 6 caracteres.", Toast.LENGTH_SHORT).show();
@@ -102,14 +101,14 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    void register(final String name, String dni, String password){
+    void register(String nombres, String apellidos, String correo, String movil, String dni, String password){
         mAuthProvider.register(dni, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 mDialog.hide();
                 if(task.isSuccessful()){
                     String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    Client client = new Client(id, name, dni);
+                    Client client = new Client(id, nombres, apellidos,correo,movil,dni.substring(0,dni.indexOf("@")));
                     create(client);
                 }else{
                     Toast.makeText(RegisterActivity.this, "No se pudo registrar el Usuario", Toast.LENGTH_SHORT).show();
