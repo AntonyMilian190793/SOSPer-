@@ -33,6 +33,12 @@ public class ClientProvider {
         return mDatabase.child(client.getId()).updateChildren(map);
     }
 
+    public Task<Void> update(String image,String id){
+        Map<String, Object> map = new HashMap<>();
+        map.put("image_dni", image);
+        return mDatabase.child(id).updateChildren(map);
+    }
+
     public DatabaseReference getClient(String idClient){
         return mDatabase.child(idClient);
     }

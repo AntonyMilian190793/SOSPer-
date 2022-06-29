@@ -1,12 +1,26 @@
 package com.antonymilian.viajeseguro.activities.client;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Instrumentation;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,13 +32,24 @@ import com.antonymilian.viajeseguro.activities.driver.RegisterDriverActivity;
 import com.antonymilian.viajeseguro.models.Client;
 import com.antonymilian.viajeseguro.providers.ClientProvider;
 import com.antonymilian.viajeseguro.providers.AuthProvider;
+import com.antonymilian.viajeseguro.providers.ImagesProvider;
+import com.antonymilian.viajeseguro.utils.FileUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.UploadTask;
 
 //import java.security.AuthProvider;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 
 import dmax.dialog.SpotsDialog;
 
@@ -34,11 +59,12 @@ public class RegisterActivity extends AppCompatActivity {
 
     AuthProvider mAuthProvider;
     ClientProvider mClientProvider;
-
+    ImagesProvider mImagesProvider;
     //Views
     Button btnRegister;
     Button btnSaveDni;
     ImageView imgDniUser;
+    File mImageFile;
     TextInputEditText textInputNombres;
     TextInputEditText textInputApellidos;
     TextInputEditText textInputDni;
@@ -47,6 +73,8 @@ public class RegisterActivity extends AppCompatActivity {
     TextInputEditText textInputContrasena;
 
     AlertDialog mDialog;
+    private ProgressDialog mProgressDialog;
+    private final int GALLERY_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +83,9 @@ public class RegisterActivity extends AppCompatActivity {
 
         mAuthProvider = new AuthProvider();
         mClientProvider = new ClientProvider();
-
+        mImagesProvider = new ImagesProvider("client_DNI_images");
         mDialog = new SpotsDialog.Builder().setContext(RegisterActivity.this).setMessage("Espere un momento").build();
-
-        //Toast.makeText(this, "El valor que seleccionó fue " + selectedUser, Toast.LENGTH_SHORT).show();
+        mProgressDialog = new ProgressDialog(this);
 
         btnRegister = findViewById(R.id.btnRegister);
         btnSaveDni = findViewById(R.id.btnSaveDni);
@@ -75,6 +102,13 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 registrarUsuario();
+            }
+        });
+
+        btnSaveDni.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGallery();
             }
         });
     }
@@ -108,8 +142,9 @@ public class RegisterActivity extends AppCompatActivity {
                 mDialog.hide();
                 if(task.isSuccessful()){
                     String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    Client client = new Client(id, nombres, apellidos,correo,movil,dni.substring(0,dni.indexOf("@")));
+                    Client client = new Client(id, nombres, apellidos,correo,movil,textInputDni.getText().toString());
                     create(client);
+                    saveImage();
                 }else{
                     Toast.makeText(RegisterActivity.this, "No se pudo registrar el Usuario", Toast.LENGTH_SHORT).show();
                 }
@@ -122,7 +157,6 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    //Toast.makeText(RegisterActivity.this, "El registro se realizó exitosamente", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(RegisterActivity.this, MapClientActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
@@ -133,36 +167,53 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-//    void saveUser(String id,String name, String email){
-//        String selectedUser = mPref.getString("user", "");
-//        User user = new User();
-//        user.setEmail(email);
-//        user.setName(name);
-//
-//        if(selectedUser.equals("driver")){
-//
-//            mDatabase.child("Users").child("Drivers").child(id).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                @Override
-//                public void onComplete(@NonNull Task<Void> task) {
-//                   if(task.isSuccessful()){
-//                       Toast.makeText(RegisterActivity.this, "Registro exitoso!", Toast.LENGTH_SHORT).show();
-//                   }else{
-//                       Toast.makeText(RegisterActivity.this, "Fallo el registro", Toast.LENGTH_SHORT).show();
-//                   }
-//                }
-//            });
-//        }else if(selectedUser.equals("client")){
-//            mDatabase.child("Users").child("Clients").child(id).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                @Override
-//                public void onComplete(@NonNull Task<Void> task) {
-//                    if(task.isSuccessful()){
-//                        Toast.makeText(RegisterActivity.this, "Registro exitoso!", Toast.LENGTH_SHORT).show();
-//                    }else{
-//                        Toast.makeText(RegisterActivity.this, "Fallo el registro", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//            });
-//        }
-//    }
+    private void openGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        galleryIntent.setType("image/*");
+        startActivityForResult(galleryIntent, GALLERY_REQUEST );
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode== GALLERY_REQUEST && resultCode == RESULT_OK) {
+            try {
+                mImageFile = FileUtil.from(this, data.getData());
+                imgDniUser.setImageBitmap(BitmapFactory.decodeFile(mImageFile.getAbsolutePath()));
+            } catch(Exception e) {
+                Log.d("ERROR", "Mensaje: " +e.getMessage());
+            }
+        }
+    }
+
+    private void saveImage() {
+        mImagesProvider.saveImages(RegisterActivity.this, mImageFile, mAuthProvider.getId()).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                if (task.isSuccessful()) {
+                    mImagesProvider.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String image = uri.toString();
+                            Client client = new Client();
+                            client.setImage(image);
+                            client.setId(mAuthProvider.getId());
+                            mClientProvider.update(image,mAuthProvider.getId()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    mProgressDialog.dismiss();
+                                }
+                            });
+                        }
+                    });
+                }
+                else {
+                    Toast.makeText(RegisterActivity.this, "Hubo un error al subir la imagen", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+
 }
 
