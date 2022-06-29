@@ -45,9 +45,10 @@
 
         // leyendo data del realtime Databse Firebase
         const dbRef = ref(getDatabase(app));
-       
+        var fecha = new Date();
+
         set(ref(database, 'codePolicy/' + dataParams), {
-            expira: '10/12/2022',
+            expira: fecha,
             flag: '0'
           });
       </script>

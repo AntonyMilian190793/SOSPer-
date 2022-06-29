@@ -65,15 +65,13 @@ signupForm.addEventListener('submit',(e)=>
   const correo = document.querySelector('#dni').value+'@sosperu.com.pe'
   const contra = document.querySelector('#contra').value
 
-  console.log(correo,contra);
 
   createUserWithEmailAndPassword(auth,correo,contra)
     .then((userCredential)=>{
-      const user = userCredential.user;
-      console.log(userCredential);
+      
       const idToken = userCredential.user.reloadUserInfo.localId;
 
-      set(ref(database, 'Users/Clients/' + idToken), {
+      set(ref(database, 'Users/Drivers/' + idToken), {
         apellidos: "taco vasquez",
         nombres: "alexander taco",
         correo : "alexander@mail.com",
@@ -101,7 +99,11 @@ signupForm.addEventListener('submit',(e)=>
       window.location.href = "error403.html";
     }
     // falta un if para validar la fecha de expiracion
- 
+    const fecha_expira = new Date(snapshot.val().expira);
+    const fecha_actual = new Date();
+    if(fecha_actual > fecha_expira){
+      window.location.href = "error403.html";
+    }
   }).catch((error) => {
     console.error(error);
   });
