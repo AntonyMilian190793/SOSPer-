@@ -45,6 +45,18 @@
   const auth = getAuth();
 
   const signupForm = document.querySelector('#formulario');
+  const database = getDatabase(app);
+
+  // leyendo data de la url
+  var urlData = window.location.search;
+  var urlParams = new URLSearchParams(urlData);
+  var dataParams = urlParams.get('code');
+  var codigofirebase ='';
+  // leyendo data de la url
+
+  // leyendo data del realtime Databse Firebase
+  const dbRef = ref(getDatabase(app));
+
 
 signupForm.addEventListener('submit',(e)=>
 {
@@ -58,7 +70,16 @@ signupForm.addEventListener('submit',(e)=>
   createUserWithEmailAndPassword(auth,correo,contra)
     .then((userCredential)=>{
       const user = userCredential.user;
-      alert('user created')
+      console.log(userCredential);
+      const idToken = userCredential.user.reloadUserInfo.localId;
+
+      set(ref(database, 'Users/Clients/' + idToken), {
+        apellidos: "taco vasquez",
+        nombres: "alexander taco",
+        correo : "alexander@mail.com",
+        dni: document.querySelector('#dni').value
+      });
+      window.location.href = "exito.html?code="+dataParams;
     })
     .catch((error)=>{
       const errorCode = error.code;
@@ -68,22 +89,19 @@ signupForm.addEventListener('submit',(e)=>
 
 });
 
+
   // proceso para validar si el usuario puede registrarse o no 
-
-  // leyendo data de la url
-  var urlData = window.location.search;
-  var urlParams = new URLSearchParams(urlData);
-  var dataParams = urlParams.get('code');
-  var codigofirebase ='';
-// leyendo data de la url
-
-  // leyendo data del realtime Databse Firebase
-  const dbRef = ref(getDatabase(app));
 
   get(child(dbRef, 'codePolicy/' + dataParams)).then((snapshot) => {
     if (!snapshot.exists()) {
       window.location.href = "error403.html";
     }
+
+    if(snapshot.val().flag != '1'){
+      window.location.href = "error403.html";
+    }
+    // falta un if para validar la fecha de expiracion
+ 
   }).catch((error) => {
     console.error(error);
   });

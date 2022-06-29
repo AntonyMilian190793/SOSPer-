@@ -49,7 +49,8 @@ signupForm.addEventListener('submit',(e)=>
  
   const database = getDatabase(app);
   set(ref(database, 'codePolicy/' + codigoPlaca), {
-      expira: '10/12/2022'
+      expira: '10/12/2022',
+      flag: '1'
     });
     document.querySelector('#codigoPlaca').value = '';
 });
